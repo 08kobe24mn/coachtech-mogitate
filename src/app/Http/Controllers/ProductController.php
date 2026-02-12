@@ -9,12 +9,14 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    const PER_PAGE_NUMBER = 6;
+
     public function index(Request $request)
     {
         $sort = $request->get('sort');
 
         if (isset($sort)) {
-            $products = Product::orderBy('price', $sort)->paginate(6);
+            $products = Product::orderBy('price', $sort)->paginate(self::PER_PAGE_NUMBER);
             $appendsParams['sort'] = $sort;
             $products->appends($appendsParams);
         } else {
